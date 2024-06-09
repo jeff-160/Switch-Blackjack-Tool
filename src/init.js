@@ -6,7 +6,7 @@ window.onload = ()=> {
 
 function Init(){
     document.getElementById("Notice").style.display = "none"
-    CreateUI()
+    Display()
 }
 
 

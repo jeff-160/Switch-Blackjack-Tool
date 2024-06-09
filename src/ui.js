@@ -14,26 +14,53 @@ function CreateDiv(width, height, text="", background="none"){
     return div
 }
 
-function CreateUI(){
+function Display(){
     Container = document.getElementById("Container")
 
-    const margin = 10
-    const width = ~~(Container.clientWidth/Cards.length)-margin
+    const margin = 10,
+        width = ~~(Container.clientWidth/Cards.length)-margin,
+        height = Container.clientHeight/9
 
-    for (let i=0;i<Cards.length;i++){
-        const height = Container.clientHeight/9
-    
-        const body = CreateDiv(width, height, "0", "white"),
-            header = CreateDiv(width, height, Cards[i], "grey")
-        body.style.top = `${height}px`
-    
-        const wrapper = CreateDiv(width, height*2)
-        ;[wrapper.style.top, wrapper.style.left] = [0, `${i*(width+margin)}px`]
-        wrapper.style.border = "2px solid white"
-        wrapper.classList.add("Card")
-        wrapper.appendChild(header)
-        wrapper.appendChild(body)
+    let bottom = 0
 
-        Container.appendChild(wrapper)
+    for (let j=0;j<2;j++){
+        for (let i=0;i<Cards.length;i++){
+        
+            const body = CreateDiv(width, height, "0", "white"),
+                header = CreateDiv(width, height, Cards[i], "grey")
+            body.style.top = `${height}px`
+
+            const Name = CreateDiv(100, 50, j ? "Dealer" : "You")
+            Name.style.top = bottom+"px"
+            Container.appendChild(Name)
+        
+            const wrapper = CreateDiv(width, height*2)
+            ;[wrapper.style.top, wrapper.style.left] = [`${Name.clientTop+Name.clientHeight+bottom}px`, `${i*(width+margin)}px`]
+            wrapper.style.border = "2px solid white"
+            wrapper.classList.add("Card")
+            wrapper.onmousedown = e=> UpdateCard(e)
+
+            wrapper.appendChild(header)
+            wrapper.appendChild(body)
+            Container.appendChild(wrapper)
+        }
+
+        const last = [...Container.childNodes].at(-1)
+        bottom = parseInt(last.style.top, 0)+last.clientHeight+20
     }
+
+    const box = CreateDiv(height*2, height, "Nigger", "white")
+    Container.appendChild(box)
+    box.classList.add("Centered")
+    box.id = "Move"
+    box.style.top = `${Container.clientHeight-box.clientHeight}px`
+}
+
+function UpdateCard(event){
+    if (![0, 2].includes(event.button))
+        return
+
+    const div = (event.target.classList.contains("Card") ? event.target : event.target.parentNode).childNodes[1],
+        score = parseInt(div.innerHTML, 0)+!(~~event.button)*2-1
+    div.innerHTML = score*(score>=0)
 }
