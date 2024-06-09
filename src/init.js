@@ -9,7 +9,6 @@ function Init(){
     Display()
 }
 
-
 document.getElementById("Proceed").addEventListener("change", ()=>{
     localStorage.setItem(MEM, true)
     setTimeout(Init, 500)

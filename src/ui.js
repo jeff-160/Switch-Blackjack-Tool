@@ -24,7 +24,6 @@ function Display(){
 
     for (let j=0;j<2;j++){
         for (let i=0;i<Cards.length;i++){
-        
             const body = CreateDiv(width, height, "0", "white"),
                 header = CreateDiv(width, height, Cards[i], "grey")
             body.style.top = `${height}px`
