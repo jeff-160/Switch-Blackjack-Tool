@@ -1,6 +1,5 @@
 const Cards = [..."A23456789", "10", ..."JQK"]
 let Container
-const Scale = 0.2
 
 function CreateDiv(width, height, text="", background="none"){
     const div = document.createElement("div")
