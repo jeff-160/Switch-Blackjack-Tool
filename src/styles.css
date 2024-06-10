@@ -29,7 +29,7 @@
     font-size: 3vw;
 }
 
-.Card {
+.Card, #Move {
     border-radius: 10px;
 }
 
