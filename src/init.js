@@ -9,12 +9,12 @@ function Init(){
     Display()
 }
 
-document.getElementById("Proceed").addEventListener("change", ()=>{
+document.getElementById("Proceed").addEventListener("change", ()=> {
     localStorage.setItem(MEM, true)
     setTimeout(Init, 500)
 })
 
-document.addEventListener("keyup", (e)=>{
+document.addEventListener("keyup", e => {
     if (e.key==" ")
         localStorage.clear() || window.location.reload()
 })

@@ -1,5 +1,5 @@
 const Cards = [..."A23456789", "10", ..."JQK"]
-let Container
+let Container = null
 
 function CreateDiv(width, height, text="", background="none"){
     const div = document.createElement("div")
@@ -17,8 +17,8 @@ function Display(){
     Container = document.getElementById("Container")
 
     const margin = 10,
-        width = ~~(Container.clientWidth/Cards.length)-margin,
-        height = Container.clientHeight/9
+        width = ~~(Container.clientWidth/Cards.length)-margin
+    let height = Container.clientHeight/9
 
     let bottom = 0
 
@@ -27,8 +27,9 @@ function Display(){
             const body = CreateDiv(width, height, "0", "white"),
                 header = CreateDiv(width, height, Cards[i], "grey")
             body.style.top = `${height}px`
+            body.id = "Count"
 
-            const Name = CreateDiv(100, 50, j ? "Dealer" : "You")
+            const Name = CreateDiv(Container.clientWidth, 50, j ? "Dealer" : "You")
             Name.style.top = bottom+"px"
             Container.appendChild(Name)
         
@@ -36,7 +37,7 @@ function Display(){
             ;[wrapper.style.top, wrapper.style.left] = [`${Name.clientTop+Name.clientHeight+bottom}px`, `${i*(width+margin)}px`]
             wrapper.style.border = "2px solid white"
             wrapper.classList.add("Card")
-            wrapper.onmousedown = e=> UpdateCard(e)
+            wrapper.onmousedown = e => UpdateCard(e)
 
             wrapper.appendChild(header)
             wrapper.appendChild(body)
@@ -46,8 +47,9 @@ function Display(){
         const last = [...Container.childNodes].at(-1)
         bottom = parseInt(last.style.top, 0)+last.clientHeight+20
     }
-
-    const box = CreateDiv(height*2, height, "Nigger", "white")
+    
+    height = ~~(Container.clientHeight-bottom)*2/3
+    const box = CreateDiv(height*2, height, "-", "white")
     Container.appendChild(box)
     box.classList.add("Centered")
     box.id = "Move"
@@ -58,7 +60,7 @@ function UpdateCard(event){
     if (![0, 2].includes(event.button))
         return
 
-    const div = (event.target.classList.contains("Card") ? event.target : event.target.parentNode).childNodes[1],
-        score = parseInt(div.innerHTML, 0)+!(~~event.button)*2-1
-    div.innerHTML = score*(score>=0)
+    const div = event.target.closest(".Card").querySelector("#Count"),
+        count = parseInt(div.innerHTML, 0)+!(~~event.button)*2-1
+    div.innerHTML = count*(count>=0)
 }
