@@ -20,9 +20,8 @@ function Display(){
 
     const margin = 10,
         width = ~~(Container.clientWidth/Cards.length)-margin
-    let height = ~~(Container.clientHeight/20)
-
-    let bottom = 0
+    let height = ~~(Container.clientHeight/20),
+        bottom = 0
 
     for (const j of [Player, Dealer]){
         const name = CreateDiv(Container.clientWidth, width/3, j==Player ? "You" : "Dealer")
@@ -77,12 +76,10 @@ function CardEvent(event){
         return
     
     const parent = event.target.closest(".Card"),
-        count = parent.querySelector("#Count")
-    
-    let face = parent.querySelector("#Face").innerHTML
-    face = +face || face
-    
+        count = parent.querySelector("#Count"),
+        face = (i => +i || i)(parent.querySelector("#Face").innerHTML)
     let change = !(~~event.button)*2-1
+
     if (parent.Hand==Dealer[0]){
         ;[...Container.childNodes].filter(i => i.Hand==Dealer[0]).forEach(i => i.querySelector("#Count").innerHTML = 0)
         Dealer[0].splice(0, Dealer[0].length)
