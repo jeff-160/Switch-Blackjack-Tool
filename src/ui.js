@@ -77,15 +77,21 @@ function CardEvent(event){
         return
     
     const parent = event.target.closest(".Card"),
-        count = parent.querySelector("#Count"),
-        face = parent.querySelector("#Face").innerHTML
+        count = parent.querySelector("#Count")
+    
+    let face = parent.querySelector("#Face").innerHTML
+    face = +face || face
     
     let change = !(~~event.button)*2-1
+    if (parent.Hand==Dealer[0]){
+        ;[...Container.childNodes].filter(i => i.Hand==Dealer[0]).forEach(i => i.querySelector("#Count").innerHTML = 0)
+        Dealer[0].splice(0, Dealer[0].length)
+    }
     change>0 ? parent.Hand.length<2 ? parent.Hand.push(face) : (change = 0)+alert("Hand already full") : parent.Hand.splice(parent.Hand.indexOf(face), 1)
-    
+
     count.innerHTML = Math.max(0, +count.innerHTML+change)
 }
 
 function CalculateEvent(event) {
-    
+    document.getElementById("Move").innerHTML = GetMove(event.target.Hand)   
 }
