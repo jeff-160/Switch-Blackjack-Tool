@@ -15,7 +15,6 @@
 }
 
 input[type=checkbox] {
-    vertical-align: middle;
     transform: scale(calc(var(--font-scale)/1.5));
 }
 
