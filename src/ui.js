@@ -14,6 +14,8 @@ function CreateDiv(width, height, text="", background="none"){
 }
 
 function Display(){
+    document.getElementById("Switch").style.display = "block"
+
     Container = document.getElementById("Container")
 
     const margin = 10,

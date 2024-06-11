@@ -9,7 +9,7 @@ function Init(){
     Display()
 }
 
-document.getElementById("Proceed").addEventListener("change", ()=> {
+document.getElementById("Notice").querySelector("input[type=checkbox]").addEventListener("change", ()=> {
     localStorage.setItem(MEM, true)
     setTimeout(Init, 500)
 })

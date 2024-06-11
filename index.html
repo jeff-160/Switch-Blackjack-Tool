@@ -5,18 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Card Counter</title>
+    <title>Switch Blackjack Tool</title>
     <link rel="icon" href="assets/icon.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body style="background: lightgrey" oncontextmenu="return false">
+    <div style="text-align: left; display: none" id="Switch">
+        <input type="checkbox" checked/>
+        <label>Switch</label>
+    </div>
+
     <div id="Notice" class="Centered">
-        <input type="checkbox" id="Proceed"/>
-        <label>
-            I have read and accepted the
-            <a href="LICENSE" target="_blank">terms of service</a>
-        </label>
+        <input type="checkbox"/>
+        <label>I have read and accepted the <a href="LICENSE" target="_blank">terms of service</a></label>
     </div>
 
     <div class="Centered" id="Container"></div>
