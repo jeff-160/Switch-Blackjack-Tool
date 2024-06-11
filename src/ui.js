@@ -65,7 +65,7 @@ function Display(){
     }
     
     height = ~~(Container.clientHeight-bottom)*2/3
-    const box = CreateDiv(height*2, height, "-", "white")
+    const box = CreateDiv(height*4, height, "-", "white")
     Container.appendChild(box)
     box.classList.add("Centered")
     box.id = "Move"
