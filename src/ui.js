@@ -1,4 +1,4 @@
-const Cards = [..."A23456789", "10", ..."JQK"]
+const Cards = [..."A23456789", "10"]
 let Container = null
 
 function CreateDiv(width, height, text="", background="none"){
@@ -18,34 +18,48 @@ function Display(){
 
     const margin = 10,
         width = ~~(Container.clientWidth/Cards.length)-margin
-    let height = Container.clientHeight/9
+    let height = ~~(Container.clientHeight/20)
 
     let bottom = 0
 
-    for (let j=0;j<2;j++){
-        for (let i=0;i<Cards.length;i++){
-            const body = CreateDiv(width, height, "0", "white"),
-                header = CreateDiv(width, height, Cards[i], "grey")
-            body.style.top = `${height}px`
-            body.id = "Count"
+    for (const j of [Player, Dealer]){
+        const name = CreateDiv(Container.clientWidth, width/3, j==Player ? "You" : "Dealer")
+        name.style.top = `${bottom}px`
+        Container.appendChild(name)
+        bottom+=name.clientHeight
 
-            const Name = CreateDiv(Container.clientWidth, 50, j ? "Dealer" : "You")
-            Name.style.top = bottom+"px"
-            Container.appendChild(Name)
-        
-            const wrapper = CreateDiv(width, height*2)
-            ;[wrapper.style.top, wrapper.style.left] = [`${Name.clientTop+Name.clientHeight+bottom}px`, `${i*(width+margin)}px`]
-            wrapper.style.border = "2px solid white"
-            wrapper.classList.add("Card")
-            wrapper.onmousedown = e => UpdateCard(e)
+        for (const hand of j){
+            if (j==Player){
+                const calc = CreateDiv(width, width/3, "Calculate")
+                calc.id = "Calculate"
+                calc.style.top = `${bottom}px`
+                ;[calc.Hand, calc.onclick] = [hand, e => CalculateEvent(e)]
+                Container.appendChild(calc)
+                bottom+=calc.clientHeight
+            }
 
-            wrapper.appendChild(header)
-            wrapper.appendChild(body)
-            Container.appendChild(wrapper)
+            for (let i=0;i<Cards.length;i++){
+                const body = CreateDiv(width, height, "0", "white"),
+                    header = CreateDiv(width, height, Cards[i], "grey")
+                body.style.top = `${height}px`
+                ;[header.id, body.id] = ["Face", "Count"]
+            
+                const wrapper = CreateDiv(width, height*2)
+                ;[wrapper.style.top, wrapper.style.left] = [`${bottom}px`, `${i*(width+margin)}px`]
+                wrapper.style.border = "2px solid white"
+                wrapper.classList.add("Card")
+                wrapper.Hand = hand
+                wrapper.onmousedown = e => CardEvent(e)
+    
+                wrapper.appendChild(header)
+                wrapper.appendChild(body)
+                Container.appendChild(wrapper)
+            }
+    
+            const last = [...Container.childNodes].at(-1)
+            bottom = parseInt(last.style.top, 0)+last.clientHeight+10
         }
-
-        const last = [...Container.childNodes].at(-1)
-        bottom = parseInt(last.style.top, 0)+last.clientHeight+20
+        bottom+=30
     }
     
     height = ~~(Container.clientHeight-bottom)*2/3
@@ -56,11 +70,20 @@ function Display(){
     box.style.top = `${Container.clientHeight-box.clientHeight}px`
 }
 
-function UpdateCard(event){
+function CardEvent(event){
     if (![0, 2].includes(event.button))
         return
+    
+    const parent = event.target.closest(".Card"),
+        count = parent.querySelector("#Count"),
+        face = parent.querySelector("#Face").innerHTML
+    
+    let change = !(~~event.button)*2-1
+    change>0 ? parent.Hand.length<2 ? parent.Hand.push(face) : (change = 0)+alert("Hand already full") : parent.Hand.splice(parent.Hand.indexOf(face), 1)
+    
+    count.innerHTML = Math.max(0, +count.innerHTML+change)
+}
 
-    const div = event.target.closest(".Card").querySelector("#Count"),
-        count = parseInt(div.innerHTML, 0)+!(~~event.button)*2-1
-    div.innerHTML = count*(count>=0)
+function CalculateEvent(event) {
+    
 }

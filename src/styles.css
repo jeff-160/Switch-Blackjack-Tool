@@ -1,3 +1,7 @@
+:root {
+    --font-scale: 2;
+}
+
 @font-face {
     font-family: "CustomFont";	
     src: url("vt323.ttf");
@@ -5,7 +9,14 @@
 
 * {
     font-family: "CustomFont";
+    text-align: center;
+    font-size: calc(var(--font-scale)*1vw);
     user-select: none;
+}
+
+input[type=checkbox] {
+    vertical-align: middle;
+    transform: scale(calc(var(--font-scale)/1.5));
 }
 
 .Centered {
@@ -17,22 +28,29 @@
     margin: auto;
 }
 
+
 #Container {
     width: 90%;
     height: 90%;
 }
 
 #Container * {
-    text-align: center;
     justify-content: center;
     align-content: center;
-    font-size: 3vw;
 }
 
-.Card, #Move {
+.Card, #Move, #Calculate {
     border-radius: 10px;
 }
 
 .Card:hover {
-    transform: scale(1.1)
+    transform: scale(1.1);
+}
+
+#Calculate {
+    font-size: calc(var(--font-scale)*2/3*1vw);
+}
+
+#Calculate:hover {
+    color: white;
 }
