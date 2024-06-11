@@ -65,7 +65,7 @@ function Display(){
     }
     
     height = ~~(Container.clientHeight-bottom)*2/3
-    const box = CreateDiv(height*4, height, "-", "white")
+    const box = CreateDiv(height*4, height, "", "white")
     Container.appendChild(box)
     box.classList.add("Centered")
     box.id = "Move"
@@ -87,8 +87,8 @@ function CardEvent(event){
         ;[...Container.childNodes].filter(i => i.Hand==Dealer[0]).forEach(i => i.querySelector("#Count").innerHTML = 0)
         Dealer[0].splice(0, Dealer[0].length)
     }
-    change>0 ? parent.Hand.length<2 ? parent.Hand.push(face) : (change = 0)+alert("Hand already full") : parent.Hand.splice(parent.Hand.indexOf(face), 1)
 
+    document.querySelector("#Move").innerHTML = `${change>0 ? parent.Hand.length<2 ? parent.Hand.push(face) : (change = 0) || "Hand already full" : parent.Hand.splice(parent.Hand.indexOf(face), 1)}`.replace(/[0-9]/g, "")
     count.innerHTML = Math.max(0, +count.innerHTML+change)
 }
 
