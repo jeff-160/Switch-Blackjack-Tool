@@ -6,7 +6,7 @@ function CreateDiv(width, height, text="", background="none"){
     div.style.position = "absolute"
     div.style.overflow = "hidden"
     div.style.top = div.style.left = 0
-    ;[div.style.width, div.style.height] = [width, height].map(i => `${~~i}px`)
+    ;[div.style.width, div.style.height] = [width, height].map(i => +i ? `${~~i}px` : i)
     div.style.background = background
     div.innerHTML = text
     
@@ -30,10 +30,11 @@ function Display(){
         bottom+=name.clientHeight
 
         for (const hand of j){
+            let calc
             if (j==Player){
-                const calc = CreateDiv(width, width/3, "Calculate")
+                calc = CreateDiv("fit-content", "fit-content", "Calculate")
                 calc.id = "Calculate"
-                ;[calc.style.textAlign, calc.style.top] = ["left", `${bottom}px`]
+                ;[calc.style.textAlign, calc.style.top, calc.style.paddingBottom] = ["left", `${bottom}px`, "10px"]
                 ;[calc.Hand, calc.onclick] = [hand, e => CalculateEvent(e)]
                 Container.appendChild(calc)
                 bottom+=calc.clientHeight
@@ -48,7 +49,7 @@ function Display(){
                 const wrapper = CreateDiv(width, height*2)
                 ;[wrapper.style.top, wrapper.style.left, wrapper.style.border] = [`${bottom}px`, `${i*(width+margin)}px`, "2px solid white"]
                 wrapper.classList.add("Card")
-                wrapper.Hand = hand
+                ;[wrapper.Hand, wrapper.Display] = [hand, calc]
                 wrapper.onmousedown = e => CardEvent(e)
     
                 wrapper.appendChild(header)
@@ -84,8 +85,9 @@ function CardEvent(event){
         Dealer[0].splice(0, Dealer[0].length)
     }
 
-    change>0 ? parent.Hand.push(face) : parent.Hand.splice(parent.Hand.indexOf(face), 1)
+    change>0 ? parent.Hand.push(face) : parent.Hand.includes(face) ? parent.Hand.splice(parent.Hand.indexOf(face), 1) : 0
     count.innerHTML = Math.max(0, +count.innerHTML+change)
+    parent.Display.innerHTML = `Calculate${` (${parent.Hand})`.repeat(!!parent.Hand.length)}`
 }
 
 function CalculateEvent(event) {
