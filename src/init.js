@@ -20,8 +20,3 @@ function Init(){
 }
 
 document.getElementById("Notice").querySelector("input[type=checkbox]").addEventListener("change", ()=> Save() || setTimeout(Init, 500))
-
-document.addEventListener("keyup", e => {
-    if (e.key==" ")
-        localStorage.clear() || window.location.reload()
-})
