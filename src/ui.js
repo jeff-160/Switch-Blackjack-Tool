@@ -106,5 +106,8 @@ function ClearEvent(){
             })([...Container.getElementsByClassName("Card")].filter(i => i.Hand==hand))
     }
 
+    document.getElementById("SwitchToggle").checked = true
+    document.getElementById("Move").innerHTML = ""
+
     Save()
 }
