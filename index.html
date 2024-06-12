@@ -11,10 +11,11 @@
 </head>
 
 <body style="background: lightgrey" oncontextmenu="return false">
-    <div style="text-align: left; display: none" id="Switch">
-        <input type="checkbox" checked/>
+    <div id="Switch" style="display: none">
         <label>Switch</label>
+        <input type="checkbox" id="SwitchToggle" onchange="Save()" checked/>
     </div>
+    <div id="Clear" style="display: none" onclick="ClearEvent()">Clear</div>
 
     <div id="Notice" class="Centered">
         <input type="checkbox"/>
@@ -27,6 +28,7 @@
 <script src="src/strategy.js"></script>
 <script src="src/compute.js"></script>
 <script src="src/ui.js"></script>
+<script src="src/save.js"></script>
 <script src="src/init.js"></script>
 
 </html>

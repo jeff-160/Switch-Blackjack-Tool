@@ -14,7 +14,7 @@ function CreateDiv(width, height, text="", background="none"){
 }
 
 function Display(){
-    document.getElementById("Switch").style.display = "block"
+    document.getElementById("Clear").style.display = document.getElementById("Switch").style.display = "block"
 
     Container = document.getElementById("Container")
 
@@ -34,7 +34,7 @@ function Display(){
             if (j==Player){
                 calc = CreateDiv("fit-content", "fit-content", "Calculate")
                 calc.id = "Calculate"
-                ;[calc.style.textAlign, calc.style.top, calc.style.paddingBottom] = ["left", `${bottom}px`, "10px"]
+                calc.style.top = `${bottom}px`
                 ;[calc.Hand, calc.onclick] = [hand, e => CalculateEvent(e)]
                 Container.appendChild(calc)
                 bottom+=calc.clientHeight
@@ -49,8 +49,7 @@ function Display(){
                 const wrapper = CreateDiv(width, height*2)
                 ;[wrapper.style.top, wrapper.style.left, wrapper.style.border] = [`${bottom}px`, `${i*(width+margin)}px`, "2px solid white"]
                 wrapper.classList.add("Card")
-                ;[wrapper.Hand, wrapper.Display] = [hand, calc]
-                wrapper.onmousedown = e => CardEvent(e)
+                ;[wrapper.Hand, wrapper.Display, wrapper.onmousedown] = [hand, calc, e => CardEvent(e)]
     
                 wrapper.appendChild(header)
                 wrapper.appendChild(body)
@@ -71,6 +70,8 @@ function Display(){
     box.style.top = `${Container.clientHeight-box.clientHeight}px`
 }
 
+const DisplayHand = div => div.Hand!=Dealer[0] && (div.Display.innerHTML = `Calculate${` (${div.Hand})`.repeat(!!div.Hand.length)}`)
+
 function CardEvent(event){
     if (![0, 2].includes(event.button))
         return
@@ -84,12 +85,26 @@ function CardEvent(event){
         ;[...Container.childNodes].filter(i => i.Hand==Dealer[0]).forEach(i => i.querySelector("#Count").innerHTML = 0)
         Dealer[0].splice(0, Dealer[0].length)
     }
-
-    change>0 ? parent.Hand.push(face) : parent.Hand.includes(face) ? parent.Hand.splice(parent.Hand.indexOf(face), 1) : 0
+    
+    change>0 ? parent.Hand.push(face) : (parent.Hand.includes(face) ? parent.Hand.splice(parent.Hand.indexOf(face), 1) : 0)
     count.innerHTML = Math.max(0, +count.innerHTML+change)
-    parent.Display.innerHTML = `Calculate${` (${parent.Hand})`.repeat(!!parent.Hand.length)}`
+    
+    DisplayHand(parent)
+    Save()
 }
 
-function CalculateEvent(event) {
-    document.getElementById("Move").innerHTML = GetMove(event.target.Hand)   
+const CalculateEvent = event => document.getElementById("Move").innerHTML = GetMove(event.target.Hand)
+
+function ClearEvent(){
+    ;[Player, Dealer].forEach(i => i.forEach(j => j.splice(0, j.length)))
+
+    for (const player of [Player, Dealer]){
+        for (const hand of player)
+            (divs =>{
+                divs.forEach(i => i.querySelector("#Count").innerHTML = 0)
+                DisplayHand(divs[0])
+            })([...Container.getElementsByClassName("Card")].filter(i => i.Hand==hand))
+    }
+
+    Save()
 }

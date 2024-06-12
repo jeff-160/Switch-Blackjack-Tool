@@ -1,4 +1,4 @@
-const Player = [[], []], 
+let Player = [[], []], 
     Dealer = [[]]
 
 function GetMove(hand){
@@ -11,7 +11,7 @@ function GetMove(hand){
 
     const up = (i => i=="A" ? 11 : i)(Dealer[0][0])
 
-    return document.getElementById("Switch").querySelector("input[type=checkbox]").checked && Switch(up) ? "Switch" : Misc(hand, up)
+    return document.getElementById("SwitchToggle").checked && Switch(up) ? "Switch" : Misc(hand, up)
 }
 
 function Misc(hand, up){

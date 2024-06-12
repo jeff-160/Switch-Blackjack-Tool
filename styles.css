@@ -46,10 +46,12 @@ input[type=checkbox] {
     transform: scale(1.1);
 }
 
-#Calculate {
-    font-size: calc(var(--font-scale)*2/3*1vw);
+#Calculate, #Switch, #Switch *, #Clear {
+    font-size: calc(var(--font-scale)*4/5*1vw);
+    padding-bottom: 5px;
+    text-align: left;
 }
 
-#Calculate:hover {
+#Calculate:hover, #Clear:hover {
     color: white;
 }
