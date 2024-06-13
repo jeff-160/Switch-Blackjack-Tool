@@ -14,7 +14,7 @@ function CreateDiv(width, height, text="", background="none"){
 }
 
 function Display(){
-    document.getElementById("Clear").style.display = document.getElementById("Switch").style.display = "block"
+    ["Clear", "Switch", "Source"].forEach(i => document.getElementById(i).style.display = "block")
 
     Container = document.getElementById("Container")
 
