@@ -27,7 +27,6 @@ input[type=checkbox] {
     margin: auto;
 }
 
-
 #Container {
     width: 90%;
     height: 90%;
@@ -46,12 +45,21 @@ input[type=checkbox] {
     transform: scale(1.1);
 }
 
-#Calculate, #Switch, #Switch *, #Clear {
+#Calculate, #Switch, #Switch *, #Clear, #Source * {
     font-size: calc(var(--font-scale)*4/5*1vw);
     padding-bottom: 5px;
     text-align: left;
+    width: fit-content;
+    height: fit-content;
 }
 
 #Calculate:hover, #Clear:hover {
     color: white;
+}
+
+#Source {
+    position: absolute; 
+    bottom: 0;
+    right: 0;
+    padding: 10px;
 }

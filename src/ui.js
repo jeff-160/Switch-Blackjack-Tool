@@ -32,7 +32,7 @@ function Display(){
         for (const hand of j){
             let calc
             if (j==Player){
-                calc = CreateDiv("fit-content", "fit-content", "Calculate")
+                calc = CreateDiv(null, null, "Calculate")
                 calc.id = "Calculate"
                 calc.style.top = `${bottom}px`
                 ;[calc.Hand, calc.onclick] = [hand, e => CalculateEvent(e)]

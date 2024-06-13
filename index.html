@@ -8,6 +8,7 @@
     <title>Switch Blackjack Tool</title>
     <link rel="icon" href="assets/icon.png">
     <link rel="stylesheet" href="styles.css">
+    <base target="_blank">
 </head>
 
 <body style="background: lightgrey" oncontextmenu="return false">
@@ -16,12 +17,14 @@
         <input type="checkbox" id="SwitchToggle" onchange="Save()" checked/>
     </div>
     <div id="Clear" style="display: none" onclick="ClearEvent()">Clear</div>
-
+    
+    <div id="Source"><a href="https://github.com/WAP-Industries/Switch-Blackjack-Tool">Full source code</a></div>
+    
     <div id="Notice" class="Centered">
         <input type="checkbox"/>
-        <label>I have read and accepted the <a href="LICENSE" target="_blank">terms of service</a></label>
-    </div>
-
+        <label>I have read and accepted the <a href="LICENSE">terms of service</a></label>
+        </div>
+        
     <div class="Centered" id="Container"></div>
 </body>
 
