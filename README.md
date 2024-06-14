@@ -6,5 +6,5 @@ Calculate button: Get best possible move
 
 ==== Configs ====
 
-Switch checkbox: Determines whether cards can be switched (will affect calculations)
+Switch checkbox: Determines whether cards can be switched (will affect calculations)  
 Clear button: Resets all current UI configurations and clears all output
