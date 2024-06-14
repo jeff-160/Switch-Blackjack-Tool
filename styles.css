@@ -30,6 +30,7 @@ input[type=checkbox] {
 #Container {
     width: 90%;
     height: 90%;
+    z-index: -1;
 }
 
 #Container * {
@@ -45,7 +46,7 @@ input[type=checkbox] {
     transform: scale(1.1);
 }
 
-#Calculate, #Switch, #Switch *, #Clear, #Source * {
+#Calculate, #Switch, #Switch *, #Clear, #Reference * {
     font-size: calc(var(--font-scale)*4/5*1vw);
     padding-bottom: 5px;
     text-align: left;
@@ -57,9 +58,10 @@ input[type=checkbox] {
     color: white;
 }
 
-#Source {
-    position: absolute; 
+#Reference {
+    position: absolute;
     bottom: 0;
     right: 0;
     padding: 10px;
+    text-align: right;
 }
