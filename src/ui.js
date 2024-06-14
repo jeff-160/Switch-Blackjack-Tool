@@ -79,7 +79,7 @@ function CardEvent(event){
     const parent = event.target.closest(".Card"),
         count = parent.querySelector("#Count"),
         face = (i => +i || i)(parent.querySelector("#Face").innerHTML)
-    let change = !(~~event.button)*2-1
+    let change = !event.button*2-1
 
     if (parent.Hand==Dealer[0]){
         ;[...Container.childNodes].filter(i => i.Hand==Dealer[0]).forEach(i => i.querySelector("#Count").innerHTML = 0)
